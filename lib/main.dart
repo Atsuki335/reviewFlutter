@@ -20,8 +20,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(title: Text('title')),
       body: Center(
           child: ElevatedButton(
-              child: Icon(Icons.home),
-              // Text('tap me'),
+              child: Text('tap me'),
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => NextPage()));
