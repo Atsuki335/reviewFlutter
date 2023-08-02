@@ -2,7 +2,8 @@ import 'package:graphql/client.dart';
 import 'Model/ship.dart';
 
 class SpaceXRequests {
-  final Link _link = HttpLink("https://api.spacex.land/graphql/");
+  final Link _link =
+      HttpLink("https://main--spacex-l4uc6p.apollographos.net/graphql");
   late final GraphQLClient client;
 
   SpaceXRequests() {
