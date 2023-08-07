@@ -18,10 +18,11 @@ class SpaceXRequests {
         document: gql(
           r'''
 query Ship($id: ID!){
-ship(id:$id){
-id
-image
-}}
+   ship(id:$id){
+     id
+     image
+    }
+}
 ''',
         ),
         variables: {'id': '$id'});
