@@ -5,7 +5,7 @@ import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:url_launcher/url_launcher.dart';
 
 final _authorizationEndpoint =
-    Uri.parse('https://github.com/login/oauth/autorize');
+    Uri.parse('https://github.com/login/oauth/authorize');
 final _tokenEndpoint = Uri.parse('https://github.com/login/oauth/access_token');
 
 class GithubLogin extends StatefulWidget {
@@ -77,7 +77,7 @@ class _GithubLoginState extends State<GithubLogin> {
     var params = request.uri.queryParameters;
     request.response.statusCode = 200;
     request.response.headers.set('content-type', 'text/plain');
-    request.response.writeln('Authenticated! You can close thi tab.');
+    request.response.writeln('Authenticated! You can close this tab.');
     await request.response.close();
     await redirectServer.close();
 
