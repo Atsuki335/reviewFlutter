@@ -8,7 +8,7 @@ class AccessTokenNotifier extends StateNotifier<String?> {
   }
 }
 
-final AccessTokenProvider =
+final accessTokenProvider =
     StateNotifierProvider<AccessTokenNotifier, String?>((ref) {
   return AccessTokenNotifier();
 });

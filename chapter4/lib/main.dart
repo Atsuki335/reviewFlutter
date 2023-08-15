@@ -1,17 +1,37 @@
+import 'package:chapter4/access_token_provider.dart';
+import 'package:chapter4/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:chapter4/github_login.dart';
 import 'github_oauth_credentials.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(
-    const MyApp(),
-  );
+  runApp(const ProviderScope(
+    child: App(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends ConsumerStatefulWidget {
+  const App({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _AppState();
+}
+
+class _AppState extends ConsumerState<App> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final accessToken = await SecureStorage.getAccessToken();
+      if (accessToken != null) {
+        final AccessTokenNotifier = ref.read(accessTokenProvider.notifier);
+        AccessTokenNotifier.setToken(accessToken);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

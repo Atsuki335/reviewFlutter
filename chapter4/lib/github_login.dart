@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:chapter4/access_token_provider.dart';
+import 'package:chapter4/secure_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:url_launcher/url_launcher.dart';
@@ -8,8 +11,8 @@ final _authorizationEndpoint =
     Uri.parse('https://github.com/login/oauth/authorize');
 final _tokenEndpoint = Uri.parse('https://github.com/login/oauth/access_token');
 
-class GithubLogin extends StatefulWidget {
-  const GithubLogin({
+class GithubLogin extends ConsumerStatefulWidget {
+  GithubLogin({
     required this.builder,
     required this.githubClientId,
     required this.githubClientSecret,
@@ -22,13 +25,13 @@ class GithubLogin extends StatefulWidget {
   final List<String> githubScopes;
 
   @override
-  State<GithubLogin> createState() => _GithubLoginState();
+  ConsumerState<GithubLogin> createState() => _GithubLoginState();
 }
 
 typedef AuthenticatedBuilder = Widget Function(
     BuildContext context, oauth2.Client client);
 
-class _GithubLoginState extends State<GithubLogin> {
+class _GithubLoginState extends ConsumerState<GithubLogin> {
   String? accessToken;
 
   @override
@@ -85,6 +88,10 @@ class _GithubLoginState extends State<GithubLogin> {
     client.credentials.accessToken;
 
     final accessToken = client.credentials.accessToken;
+
+    final accessTokenProviderNotifier = ref.read(accessTokenProvider.notifier);
+    accessTokenProviderNotifier.setToken(client.credentials.accessToken);
+    await SecureStorage.saveAccessToken(accessToken);
   }
 
   Future<void> _getOAuth2Client(

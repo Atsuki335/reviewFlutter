@@ -1,7 +1,7 @@
 import 'package:chapter4/space_x_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../Model/ship.dart';
+import 'ship.dart';
 
 class ShipInfoPage extends StatefulWidget {
   const ShipInfoPage({super.key});

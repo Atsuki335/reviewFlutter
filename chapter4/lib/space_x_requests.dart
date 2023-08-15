@@ -1,5 +1,5 @@
 import 'package:graphql/client.dart';
-import 'Model/ship.dart';
+import 'ship.dart';
 
 class SpaceXRequests {
   final Link _link =
